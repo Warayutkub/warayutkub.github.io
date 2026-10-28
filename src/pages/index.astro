@@ -1,0 +1,210 @@
+---
+import { Image } from 'astro:assets';
+import { getCollection } from 'astro:content';
+import Layout from '../layouts/Layout.astro';
+import Footer from '../components/Footer.astro';
+import HandleButton from '../components/HandleButton.astro';
+import { site } from '../data/site';
+import hero from '../assets/site/hero.png';
+import peace from '../assets/site/sticker-peace.png';
+import folderPink from '../assets/site/folder-pink.png';
+import folderOrange from '../assets/site/folder-orange.png';
+import folderBlue from '../assets/site/folder-blue.png';
+import folderGreen from '../assets/site/folder-green.png';
+import cursor from '../assets/icons/icon-cursor.svg?raw';
+import instagram from '../assets/icons/icon-instagram.svg?raw';
+import youtube from '../assets/icons/icon-youtube.svg?raw';
+import tiktok from '../assets/icons/icon-tiktok.svg?raw';
+import facebook from '../assets/icons/icon-facebook.svg?raw';
+
+const works = (await getCollection('works')).sort((a, b) => a.data.order - b.data.order);
+const featured = works.filter((w) => w.data.featured).slice(0, 3);
+const [main, second, third] = featured;
+
+const socials = [
+  { name: 'Instagram', url: site.socials.instagram, svg: instagram },
+  { name: 'YouTube', url: site.socials.youtube, svg: youtube },
+  { name: 'TikTok', url: site.socials.tiktok, svg: tiktok },
+  { name: 'Facebook', url: site.socials.facebook, svg: facebook },
+].filter((s) => s.url);
+
+const steps = [
+  { n: '01', title: 'RESEARCH', body: 'คุยกับลูกค้าและผู้ใช้ หาว่าปัญหาจริงคืออะไร ก่อนเริ่มทำอะไรเลย', tools: ['FigJam', 'Miro'] },
+  { n: '02', title: 'STRUCTURE', body: 'จัดข้อมูลและ flow ให้ผู้ใช้ถึงเป้าหมายได้ในไม่กี่ขั้น', tools: ['FigJam', 'Notion'] },
+  { n: '03', title: 'DESIGN', body: 'ออกแบบหน้าจอจาก flow ที่วางไว้ ใช้ชิ้นส่วนชุดเดียวกันทั้งระบบ ให้ดูก่อนเริ่มเขียน', tools: ['Figma', 'AI'] },
+  { n: '04', title: 'BUILD', body: 'เขียนโค้ดเองจนขึ้นใช้งานจริง ทั้งเว็บและแอป พร้อม SEO และช่วยดูแลหลังส่งงาน', tools: ['Code', 'GitHub'] },
+];
+const tools = ['Figma', 'FigJam', 'Astro', 'GitHub'];
+const subtitle = 'System designer crafting design systems, components and user flows that teams can actually ship.';
+const letters = [...'PORTFOLIO'];
+
+// Desktop folders: [image, left, top, width, label, label offset, parallax depth, drop delay]
+const folders = [
+  { src: folderPink, x: 770, y: 20, w: 130, label: 'design-system', pad: 10, depth: 0.16, d: 300 },
+  { src: folderOrange, x: 1150, y: 40, w: 120, label: 'web-app', pad: 39, depth: 0.26, d: 360 },
+  { src: folderBlue, x: 770, y: 300, w: 130, label: 'mobile-app', pad: 23, depth: 0.1, d: 420 },
+  { src: folderGreen, x: 1150, y: 330, w: 130, label: 'branding', pad: 31, depth: 0.2, d: 480, below: true },
+];
+---
+
+<Layout title="Warayut — Portfolio">
+  <!-- Hero -->
+  <section class="panel overflow-hidden pt-2 lg:pt-0" data-parallax-scroll>
+    <!-- Desktop stage (matches the Figma 1280 × 600 composition) -->
+    <div class="relative hidden h-[600px] xl:block">
+      <span class="tag fade-in absolute left-[90px] top-10">◇ System Designer</span>
+      <h1 class="mask-letters absolute left-20 top-[90px] font-anton text-[165px] leading-none" aria-label="PORTFOLIO">
+        {letters.map((l, i) => <span aria-hidden="true"><span style={`--i:${i}`}>{l}</span></span>)}
+      </h1>
+      <p class="fade-in absolute left-[115px] top-[300px] w-[600px] text-center font-montserrat text-xl font-medium leading-normal" style="--d:450ms">{subtitle}</p>
+      <HandleButton href="/contact/" class="draw-handles fade-in absolute left-[285px] top-[410px] w-[260px]" style="--d:650ms">LET'S CONNECT</HandleButton>
+      {
+        socials.length > 0 && (
+          <ul class="fade-in absolute left-[297px] top-[510px] flex gap-9" style="--d:750ms">
+            {socials.map((s) => (
+              <li><a href={s.url} aria-label={s.name} class="block size-8" set:html={s.svg} /></li>
+            ))}
+          </ul>
+        )
+      }
+      <div class="absolute left-[830px] top-10 h-[408px] w-[420px]">
+        <div data-parallax="0.06">
+          <Image src={hero} alt="Warayut ตัวการ์ตูนกำลังเดินชี้นิ้ว" width={420} height={408} class="pop-in h-[408px] w-[420px] object-contain" loading="eager" />
+        </div>
+      </div>
+      {
+        folders.map((f) => (
+          <div class="absolute" style={`left:${f.x}px;top:${f.y}px;width:${f.w}px`}>
+            <div data-parallax={f.depth}>
+              <figure class="drop" style={`--d:${f.d}ms`}>
+                <div class="float" style={`--dur:${4.2 + f.depth * 6}s;--fd:${f.d + 700}ms`}>
+                  <Image src={f.src} alt="" width={f.w} />
+                </div>
+                <figcaption class:list={['mono text-sm', f.below ? 'mt-1.5' : '-mt-[18px]']} style={`padding-left:${f.pad}px`}>{f.label}</figcaption>
+              </figure>
+            </div>
+          </div>
+        ))
+      }
+      <p class="fade-in absolute left-[920px] top-[500px] font-montserrat text-2xl font-bold" style="--d:700ms">WARAYUT</p>
+      <span class="cursor-in absolute left-[1092px] top-[512px] block size-[30px]" set:html={cursor} />
+    </div>
+
+    <!-- Mobile / tablet hero -->
+    <div class="flex flex-col gap-3.5 px-5 pb-6 pt-5 xl:hidden">
+      <span class="tag fade-in self-start">◇ System Designer</span>
+      <h1 class="mask-letters font-anton text-[88px] leading-none" aria-label="PORTFOLIO">
+        {letters.map((l, i) => <span aria-hidden="true"><span style={`--i:${i}`}>{l}</span></span>)}
+      </h1>
+      <p class="fade-in font-montserrat text-base font-medium leading-normal" style="--d:450ms">{subtitle}</p>
+      <div class="relative mx-auto h-[390px] w-[324px]">
+        <div class="absolute left-2 top-5" data-parallax="0.05">
+          <Image src={hero} alt="Warayut ตัวการ์ตูนกำลังเดินชี้นิ้ว" width={310} height={301} class="pop-in h-[301px] w-[310px] object-contain" loading="eager" />
+        </div>
+        <div class="absolute left-0 top-0 w-24" data-parallax="0.14">
+          <div class="drop" style="--d:300ms"><div class="float" style="--dur:5s;--fd:1s"><Image src={folderPink} alt="" width={96} /></div></div>
+        </div>
+        <div class="absolute left-[214px] top-[236px] w-24" data-parallax="0.22">
+          <div class="drop" style="--d:420ms"><div class="float" style="--dur:5.6s;--fd:1.2s"><Image src={folderGreen} alt="" width={96} /></div></div>
+        </div>
+        <p class="fade-in absolute left-[98px] top-[346px] font-montserrat text-[22px] font-bold" style="--d:700ms">WARAYUT</p>
+      </div>
+      <a href="/contact/" class="btn-primary fade-in" style="--d:650ms">LET'S CONNECT</a>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section id="about" class="panel flex scroll-mt-24 flex-col gap-6 p-6 lg:scroll-mt-32 lg:flex-row lg:items-center lg:gap-14 lg:p-14">
+    <div class="w-full shrink-0 overflow-hidden rounded-md bg-text lg:w-[340px]">
+      <div class="flex gap-1.5 px-3 py-2" aria-hidden="true">
+        <span class="size-[9px] rounded-full bg-folder-pink"></span>
+        <span class="size-[9px] rounded-full bg-folder-orange"></span>
+        <span class="size-[9px] rounded-full bg-folder-green"></span>
+      </div>
+      <div class="flex h-[360px] items-center justify-center overflow-hidden bg-[#e4ddd3]">
+        <div data-parallax="-0.12">
+          <Image src={peace} alt="Warayut ตัวการ์ตูนชูสองนิ้ว" width={260} height={260} class="size-[260px]" />
+        </div>
+      </div>
+    </div>
+    <div class="flex flex-col gap-5">
+      <h2 class="font-anton text-5xl leading-none lg:text-[64px]" data-reveal><span>HI, I'M WARAYUT</span></h2>
+      <p class="text-lg font-semibold leading-[1.6] lg:text-xl">เป็นนักศึกษา IT ที่ชอบคิดก่อนว่าระบบควรทำงานยังไง แล้วค่อยลงมือทำเองจนใช้ได้จริง</p>
+      <p class="text-base leading-[1.6] text-[#333] lg:text-[17px]">ตอนนี้รับทำเว็บกับระบบให้ร้านค้าและธุรกิจเล็กๆ คุยโจทย์ ออกแบบ เขียนโค้ด จนขึ้นเว็บเสร็จในคนเดียว งานล่าสุดคือเว็บร้านกระจกของที่บ้าน</p>
+      <ul class="grid grid-cols-2 gap-y-2 rounded-lg bg-text px-8 py-[18px] font-montserrat text-lg font-bold text-white sm:flex sm:justify-between">
+        {tools.map((t) => <li>{t}</li>)}
+      </ul>
+    </div>
+  </section>
+
+  <!-- Selected work: a Figma-like canvas; the "YOU" cursor walks the frames as you scroll -->
+  <section class="panel flex flex-col gap-10 p-6 lg:p-14" aria-labelledby="selected-title">
+    <div class="flex flex-col gap-3">
+      <span class="tag self-start">◇ {featured.length} of {works.length} projects</span>
+      <h2 id="selected-title" class="font-anton text-[56px] leading-[0.95] lg:text-[88px]" data-reveal><span>SELECTED<br class="lg:hidden" /> WORK</span></h2>
+    </div>
+
+    <div class="relative grid gap-12 lg:grid-cols-[55%_1fr] lg:gap-[5%]" data-canvas>
+      <div class="flex flex-col">
+        <p class="mono mb-2.5 text-[13px] text-text-muted">01&nbsp;&nbsp;{main.data.label}</p>
+        <a href={`/works/${main.id}/`} class="frame is-selected" data-frame>
+          <span class="block overflow-hidden rounded-sm">
+            <Image src={main.data.cover} alt={`ภาพปก ${main.data.title}`} widths={[480, 800, 1200]} sizes="(min-width: 1024px) 55vw, 100vw" class="aspect-[640/520] w-full scale-[1.08] object-cover" data-parallax="-0.05" transition:name={`cover-${main.id}`} />
+          </span>
+          <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+          {main.data.status === 'live' && <span class="mono absolute -bottom-8 left-1/2 -translate-x-1/2 rounded-[3px] bg-primary px-2 py-[3px] text-xs text-white">LIVE ↗</span>}
+        </a>
+        <h3 class="mt-12 font-montserrat text-xl font-bold uppercase lg:text-[22px]">{main.data.title}</h3>
+        <p class="mono mt-2 text-[13px] text-text-muted">{main.data.category} · {main.data.year} · {main.data.status}</p>
+        <HandleButton href="/works/" class="mt-10 w-full lg:w-[260px]">ALL WORK →</HandleButton>
+      </div>
+
+      <div class="flex flex-col gap-14">
+        {
+          [second, third].map((w, i) => (
+            <div class:list={['flex flex-col', i === 0 ? 'ml-[15%] lg:ml-0' : 'mr-[15%] lg:ml-[15%] lg:mr-0']}>
+              <p class="mono mb-2.5 text-[13px] text-text-muted">0{i + 2}&nbsp;&nbsp;{w.data.label}</p>
+              <a href={`/works/${w.id}/`} class="frame" data-frame>
+                <span class="block overflow-hidden rounded-sm border border-border">
+                  <Image src={w.data.cover} alt={`ภาพปก ${w.data.title}`} widths={[400, 700]} sizes="(min-width: 1024px) 35vw, 85vw" class="aspect-[456/330] w-full scale-[1.08] object-cover" data-parallax="-0.05" transition:name={`cover-${w.id}`} />
+                </span>
+                <span class="corner tl" /><span class="corner tr" /><span class="corner bl" /><span class="corner br" />
+              </a>
+              <h3 class="mt-3.5 font-montserrat text-base font-bold uppercase lg:text-[17px]">{w.data.title}</h3>
+              <p class="mono mt-1.5 text-[13px] text-text-muted">{w.data.category} · {w.data.status}</p>
+            </div>
+          ))
+        }
+      </div>
+
+      <div class="pointer-events-none absolute left-0 top-0 z-10 flex items-start" data-cursor aria-hidden="true">
+        <svg width="26" height="26" viewBox="0 0 24 24"><path d="M4 2l16 9-7 1.6L9.6 20z" fill="var(--color-folder-pink)" stroke="#111" stroke-width="1.5" stroke-linejoin="round" /></svg>
+        <span class="mono mt-5 rounded bg-folder-pink px-2 py-[3px] text-xs">YOU</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- How I work -->
+  <section class="panel flex flex-col gap-7 p-6 lg:gap-10 lg:p-14">
+    <div class="flex flex-col items-center gap-3">
+      <span class="tag">◇ process</span>
+      <h2 class="font-anton text-[52px] leading-none lg:text-[80px]" data-reveal><span>HOW I WORK</span></h2>
+    </div>
+    <ol class="grid gap-3 lg:grid-cols-4 lg:gap-4">
+      {
+        steps.map((s) => (
+          <li class="flex flex-col gap-3.5 rounded-md border border-border bg-white p-7">
+            <span class="font-anton text-[40px] leading-normal text-primary">{s.n}</span>
+            <h3 class="font-montserrat text-lg font-bold">{s.title}</h3>
+            <p class="text-[15px] leading-[1.6] text-[#333]">{s.body}</p>
+            <ul class="mt-auto flex gap-1.5 pt-1">
+              {s.tools.map((t) => <li class="chip">{t}</li>)}
+            </ul>
+          </li>
+        ))
+      }
+    </ol>
+  </section>
+
+  <Footer />
+</Layout>

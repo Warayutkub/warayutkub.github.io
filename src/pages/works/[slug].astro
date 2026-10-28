@@ -1,0 +1,89 @@
+---
+import { Image } from 'astro:assets';
+import { getCollection, type CollectionEntry } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import Footer from '../../components/Footer.astro';
+import logo from '../../assets/icons/logo-light.svg?raw';
+
+export async function getStaticPaths() {
+  const works = (await getCollection('works')).sort((a, b) => a.data.order - b.data.order);
+  return works.map((work, i) => ({
+    params: { slug: work.id },
+    props: { work, prev: works[(i - 1 + works.length) % works.length], next: works[(i + 1) % works.length] },
+  }));
+}
+
+interface Props {
+  work: CollectionEntry<'works'>;
+  prev: CollectionEntry<'works'>;
+  next: CollectionEntry<'works'>;
+}
+const { work, prev, next } = Astro.props;
+const { title, summary, category, year, status, liveUrl, role, tags, screens, shots } = work.data;
+---
+
+<Layout title={`${title} — Warayut`} description={summary}>
+  <article class="panel mx-auto flex w-full max-w-[1200px] flex-col gap-5 rounded-lg p-4 lg:gap-6 lg:p-10">
+    <header class="flex items-start justify-between gap-4 lg:items-center">
+      <div class="flex items-center gap-3.5">
+        <a href="/" class="block h-[21px] w-8 shrink-0" set:html={logo} aria-label="หน้าแรก" />
+        <div>
+          <h1 class="font-montserrat text-xl font-bold leading-tight">{title}</h1>
+          <p class="mono text-[13px] text-text-muted">{category} · {year} · {status}</p>
+        </div>
+      </div>
+      <div class="flex shrink-0 items-center gap-3">
+        {liveUrl && <a href={liveUrl} class="btn-primary hidden px-8 text-base lg:inline-flex">VISIT LIVE SITE ↗</a>}
+        <a href="/contact/" class="btn-secondary hidden lg:inline-flex">CONTACT ME →</a>
+        <a href="/works/" class="flex size-12 items-center justify-center rounded-full border-[1.5px] border-text" aria-label="ปิด กลับไปหน้าผลงาน">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12" /></svg>
+        </a>
+      </div>
+    </header>
+
+    <div class="flex flex-col gap-4">
+      <p class="text-base leading-[1.6] lg:text-[15px]">{summary}</p>
+      {role && <p class="rounded-md border-l-4 border-primary bg-primary-50 px-4 py-3 text-[15px] leading-[1.6]">{role}</p>}
+      <ul class="flex flex-wrap gap-2">{tags.map((t) => <li class="chip">{t}</li>)}</ul>
+    </div>
+
+    <div class="flex items-center gap-4">
+      <p class="font-montserrat text-[13px] font-bold tracking-[0.06em] text-text-muted">SCREENS · {screens.length}</p>
+      <span class="h-px flex-1 bg-border"></span>
+    </div>
+
+    <div class="flex flex-col gap-5 lg:gap-8">
+      {
+        screens.map((s, i) => (
+          <figure class="flex flex-col gap-2.5">
+            <Image src={s.src} alt={s.alt} widths={[640, 1120, 1600]} sizes="(min-width: 1200px) 1120px, 100vw" class="w-full rounded-md" transition:name={i === 0 ? `cover-${work.id}` : undefined} />
+            <figcaption class="text-[15px] leading-[1.6] text-text-muted">{s.caption}</figcaption>
+          </figure>
+        ))
+      }
+    </div>
+
+    {
+      shots.length > 0 && (
+        <div class="flex flex-col gap-3">
+          <p class="font-montserrat text-[13px] font-bold tracking-[0.06em] text-text-muted">MORE SHOTS</p>
+          <div class="grid grid-cols-3 gap-2">
+            {shots.map((s) => <Image src={s.src} alt={s.alt} widths={[300, 600]} sizes="33vw" class="aspect-[4/3] w-full rounded-sm object-cover" />)}
+          </div>
+        </div>
+      )
+    }
+
+    <nav class="flex justify-between font-montserrat text-[13px] font-bold text-primary" aria-label="งานอื่น">
+      <a href={`/works/${prev.id}/`} class="py-2">← PREV</a>
+      <a href={`/works/${next.id}/`} class="py-2">NEXT →</a>
+    </nav>
+
+    <div class="flex flex-col gap-2.5 lg:hidden">
+      {liveUrl && <a href={liveUrl} class="btn-secondary w-full">VISIT LIVE SITE ↗</a>}
+      <a href="/contact/" class="btn-primary w-full">CONTACT ME →</a>
+    </div>
+  </article>
+
+  <Footer />
+</Layout>

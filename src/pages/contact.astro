@@ -1,0 +1,46 @@
+---
+import { Image } from 'astro:assets';
+import Layout from '../layouts/Layout.astro';
+import Footer from '../components/Footer.astro';
+import { site } from '../data/site';
+import phone from '../assets/site/sticker-phone.png';
+import lineQr from '../assets/site/line-qr.jpg';
+---
+
+<Layout title="Contact — Warayut" description="ติดต่อ Warayut เรื่องงานออกแบบหรือทำเว็บ ทางอีเมลหรือ LINE" current="contact">
+  <section class="panel">
+    <div class="flex flex-col gap-8 px-5 py-8 lg:flex-row lg:items-center lg:gap-16 lg:p-14">
+      <Image src={phone} alt="Warayut ตัวการ์ตูนกำลังเล่นมือถือ" width={380} height={380} class="mx-auto size-[220px] lg:order-last lg:size-[380px] lg:flex-1 lg:object-contain" />
+      <div class="flex flex-col gap-7 lg:w-[582px]">
+        <div class="flex flex-col gap-3">
+          <span class="tag self-start">◇ Open for projects</span>
+          <h1 class="font-anton text-[96px] leading-none lg:text-[160px]">CONNECT</h1>
+        </div>
+        <p class="text-base leading-[1.6] text-[#333] lg:text-lg">อยากคุยเรื่องงานออกแบบ ชวนทำโปรเจกต์ หรือแค่อยากทักทาย ส่งอีเมลหรือแอด LINE มาได้เลย</p>
+        <dl class="divide-y divide-border">
+          <div class="flex items-center justify-between py-4">
+            <dt class="font-montserrat text-[13px] font-bold text-text-muted">EMAIL</dt>
+            <dd><a href={`mailto:${site.email}`} class="font-montserrat text-lg font-semibold hover:text-primary">{site.email}</a></dd>
+          </div>
+          <div class="flex items-center justify-between py-4">
+            <dt class="font-montserrat text-[13px] font-bold text-text-muted">LINE</dt>
+            <dd><a href={site.line.url} class="font-montserrat text-lg font-semibold hover:text-primary">{site.line.id}</a></dd>
+          </div>
+        </dl>
+        <div class="flex flex-col gap-6 rounded-md border-[1.5px] border-text bg-white p-6 sm:flex-row sm:items-center">
+          <a href={site.line.url} class="block size-[132px] shrink-0 overflow-hidden rounded-sm border border-border" aria-label="เพิ่มเพื่อนใน LINE">
+            <Image src={lineQr} alt="QR code เพิ่มเพื่อน LINE ของ Warayut" width={264} height={264} class="size-full" />
+          </a>
+          <div class="flex flex-col items-start gap-2">
+            <span class="rounded bg-[#06c755] px-2 py-0.5 font-montserrat text-xs font-bold text-white">LINE</span>
+            <p class="text-lg font-bold">คุยเร็วกว่าทาง LINE</p>
+            <p class="text-sm leading-[1.6] text-[#333]">สแกน QR หรือกดปุ่มเพิ่มเพื่อน ส่งรูปตัวอย่างหรือถามคำถามสั้นๆ ได้เลย ตอบภายในวัน</p>
+            <a href={site.line.url} class="btn-secondary mt-1 px-6 py-2.5 text-sm">เพิ่มเพื่อน ↗</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <Footer />
+</Layout>

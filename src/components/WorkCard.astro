@@ -1,0 +1,30 @@
+---
+import { Image } from 'astro:assets';
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  work: CollectionEntry<'works'>;
+}
+const { work } = Astro.props;
+const { title, category, year, status, cover } = work.data;
+---
+
+<a href={`/works/${work.id}/`} class="group flex flex-col gap-3">
+  <span class="frame">
+    <span class="block overflow-hidden rounded-sm border border-border">
+      <Image
+        src={cover}
+        alt={`ภาพปก ${title}`}
+        widths={[480, 720, 1100]}
+        sizes="(min-width: 1024px) 50vw, 100vw"
+        class="aspect-[1220/1000] w-full scale-[1.08] object-cover lg:aspect-auto lg:h-[420px]"
+        data-parallax="-0.04"
+        transition:name={`cover-${work.id}`}
+      />
+    </span>
+    <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+  </span>
+  <p class="mono text-[13px] text-text-muted">{category} · {year} · {status}</p>
+  <h3 class="font-montserrat text-lg font-bold uppercase">{title}</h3>
+  <span class="font-montserrat text-[13px] font-bold text-primary">VIEW PROJECT →</span>
+</a>

@@ -1,0 +1,52 @@
+---
+import '../styles/global.css';
+import { ClientRouter } from 'astro:transitions';
+import Nav from '../components/Nav.astro';
+
+interface Props {
+  title: string;
+  description?: string;
+  current?: 'work' | 'about' | 'contact';
+}
+
+const {
+  current,
+  title,
+  description = 'Warayut — นักศึกษา IT รับทำเว็บและระบบให้ร้านค้าและธุรกิจเล็กๆ ตั้งแต่ออกแบบจนขึ้นใช้งานจริง',
+} = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+---
+
+<!doctype html>
+<html lang="th">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:locale" content="th_TH" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Anton&family=IBM+Plex+Mono:wght@500&family=IBM+Plex+Sans+Thai:wght@400;600;700&family=Montserrat:wght@500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <ClientRouter />
+    <script src="../scripts/motion.ts"></script>
+  </head>
+  <body>
+    <div class="mx-auto flex max-w-[1440px] flex-col gap-3 p-3 lg:gap-8 lg:px-20 lg:py-12">
+      <!-- Top bar: stays on screen while scrolling -->
+      <header class="panel sticky top-3 z-40 bg-surface/90 backdrop-blur-md lg:top-4">
+        <Nav current={current} />
+      </header>
+      <slot />
+    </div>
+  </body>
+</html>

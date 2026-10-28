@@ -1,0 +1,77 @@
+---
+import { site } from '../data/site';
+import logo from '../assets/icons/logo-light.svg?raw';
+
+interface Props {
+  current?: 'work' | 'about' | 'contact';
+}
+const { current } = Astro.props;
+const links = [
+  { key: 'work', label: 'WORK', href: '/works/' },
+  { key: 'about', label: 'ABOUT', href: '/#about' },
+  { key: 'contact', label: 'CONTACT', href: '/contact/' },
+] as const;
+---
+
+<nav class="flex items-center justify-between px-5 py-3.5 lg:px-16 lg:py-8" aria-label="เมนูหลัก">
+  <a href="/" class="flex items-center gap-2.5 font-montserrat text-base font-bold">
+    <span class="block h-[21px] w-8" set:html={logo} />
+    {site.name}
+  </a>
+  <ul class="hidden gap-14 lg:flex">
+    {
+      links.map((l) => (
+        <li>
+          <a href={l.href} class="nav-link" aria-current={current === l.key ? 'page' : undefined}>{l.label}</a>
+        </li>
+      ))
+    }
+  </ul>
+  <button
+    type="button"
+    class="flex h-11 w-11 items-center justify-center rounded-full border-[1.5px] border-text bg-white lg:hidden"
+    aria-label="เปิดเมนู"
+    data-menu-open
+  >
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 8h16M4 16h16" /></svg>
+  </button>
+</nav>
+
+<dialog data-menu class="m-0 h-dvh max-h-none w-full max-w-none bg-surface p-0 backdrop:bg-transparent">
+  <div class="flex h-full flex-col">
+    <div class="flex items-center justify-between px-5 py-3.5">
+      <a href="/" class="flex items-center gap-2.5 font-montserrat text-base font-bold">
+        <span class="block h-[21px] w-8" set:html={logo} />
+        {site.name}
+      </a>
+      <button type="button" class="flex h-11 w-11 items-center justify-center rounded-full bg-text text-white" aria-label="ปิดเมนู" data-menu-close>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12" /></svg>
+      </button>
+    </div>
+    <ul class="flex flex-1 flex-col gap-1 px-5 pt-8">
+      {
+        links.map((l) => (
+          <li>
+            <a href={l.href} class:list={['font-anton text-[64px] leading-[1.1]', current === l.key && 'text-primary']} data-menu-close>
+              {l.label}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+    <div class="p-5">
+      <a href={site.line.url} class="flex w-full items-center justify-center rounded-full bg-[#06c755] py-4 font-semibold text-white">
+        ทัก LINE · {site.line.id}
+      </a>
+    </div>
+  </div>
+</dialog>
+
+<script>
+  // Re-bind after every client-side navigation (ClientRouter swaps the DOM).
+  document.addEventListener('astro:page-load', () => {
+    const menu = document.querySelector<HTMLDialogElement>('[data-menu]');
+    document.querySelector('[data-menu-open]')?.addEventListener('click', () => menu?.showModal());
+    menu?.querySelectorAll('[data-menu-close]').forEach((el) => el.addEventListener('click', () => menu.close()));
+  });
+</script>

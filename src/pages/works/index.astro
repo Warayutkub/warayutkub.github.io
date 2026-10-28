@@ -1,0 +1,26 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import Footer from '../../components/Footer.astro';
+import WorkCard from '../../components/WorkCard.astro';
+
+const works = (await getCollection('works')).sort((a, b) => a.data.order - b.data.order);
+---
+
+<Layout title="My Work — Warayut" description="เว็บและแอปที่ขึ้นใช้งานจริง กับงานออกแบบที่เลือกมา โดย Warayut" current="work">
+  <header class="panel flex flex-col items-center pb-12">
+    <div class="flex flex-col items-center gap-4 px-5 pt-8 text-center lg:pt-12">
+      <span class="tag">◇ Selected projects</span>
+      <h1 class="font-anton text-[88px] leading-none lg:text-[180px]">MY WORK</h1>
+      <p class="text-base leading-[1.6] text-[#444] lg:text-[17px]">เว็บและแอปที่ขึ้นใช้งานจริง กับงานออกแบบที่เลือกมา {works.length} ชิ้น</p>
+    </div>
+  </header>
+
+  <section class="panel p-5 lg:p-14" aria-label="ผลงานทั้งหมด">
+    <ul class="grid gap-6 lg:grid-cols-2 lg:gap-x-8 lg:gap-y-10">
+      {works.map((w) => <li><WorkCard work={w} /></li>)}
+    </ul>
+  </section>
+
+  <Footer />
+</Layout>

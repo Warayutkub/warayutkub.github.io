@@ -1,0 +1,13 @@
+---
+import { site } from '../data/site';
+import logo from '../assets/icons/logo-dark.svg?raw';
+---
+
+<footer class="grid gap-4 rounded-sm bg-text p-7 text-white lg:grid-cols-[1fr_auto] lg:items-center lg:gap-x-8 lg:gap-y-2 lg:px-14 lg:py-10">
+  <div class="flex flex-col gap-2">
+    <span class="block h-[21px] w-8" set:html={logo} />
+    <p class="font-anton text-4xl leading-[1.1] lg:text-[40px]">LET'S BUILD BETTER SYSTEMS</p>
+  </div>
+  <a href="/contact/" class="btn-primary lg:col-start-2 lg:row-span-2 lg:row-start-1">LET'S CONNECT</a>
+  <p class="font-montserrat text-[13px] font-medium text-[#bbbbbb]">© 2026 {site.name} · {site.email}</p>
+</footer>

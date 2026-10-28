@@ -1,0 +1,20 @@
+---
+import { Image } from 'astro:assets';
+import Layout from '../layouts/Layout.astro';
+import Footer from '../components/Footer.astro';
+import dizzy from '../assets/site/sticker-dizzy.png';
+---
+
+<Layout title="Page not found — Warayut">
+  <main class="panel flex flex-1 flex-col items-center gap-4 px-6 py-12 text-center lg:py-16">
+    <Image src={dizzy} alt="ตัวการ์ตูนนอนฟุบ งง" width={220} height={220} class="size-[180px] lg:size-[220px]" />
+    <span class="tag">◇ error 404</span>
+    <h1 class="font-anton text-[52px] leading-none lg:text-8xl">PAGE NOT FOUND</h1>
+    <p class="text-base leading-[1.6] text-[#555] lg:text-[17px]">หาหน้านี้ไม่เจอ ลิงก์อาจพิมพ์ผิด หรือหน้านี้ถูกย้ายไปแล้ว กลับหน้าแรกหรือดูผลงานทั้งหมดได้เลย</p>
+    <div class="flex w-full flex-col gap-3 pt-2 sm:w-auto sm:flex-row">
+      <a href="/works/" class="btn-secondary">ALL WORK</a>
+      <a href="/" class="btn-primary px-8 text-base">BACK HOME</a>
+    </div>
+  </main>
+  <Footer />
+</Layout>

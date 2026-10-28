@@ -1,0 +1,17 @@
+---
+// Primary blue button wrapped in Figma-style selection handles.
+interface Props {
+  href: string;
+  class?: string;
+  style?: string;
+}
+const { href, class: className = '', style } = Astro.props;
+---
+
+<span class:list={['handles', className]} style={style}>
+  <a href={href} class="btn-primary w-full"><slot /></a>
+  <span class="h-line l" aria-hidden="true"></span>
+  <span class="h-line r" aria-hidden="true"></span>
+  <span class="h-dot tl" aria-hidden="true"></span>
+  <span class="h-dot br" aria-hidden="true"></span>
+</span>

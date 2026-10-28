@@ -1,0 +1,71 @@
+/* Motion — "the Figma canvas comes alive".
+   One hero curve (expo-out) for entrances, one soft curve for state changes. */
+:root {
+  --ease-hero: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-soft: cubic-bezier(0.2, 0, 0, 1);
+  --ease-drop: cubic-bezier(0.34, 1.45, 0.64, 1);
+}
+
+/* Masked letter reveal (headline leader) */
+.mask-letters { display: inline-flex; }
+.mask-letters > span { display: inline-block; overflow: hidden; padding-bottom: 0.04em; }
+.mask-letters > span > span {
+  display: inline-block;
+  animation: rise-in 900ms var(--ease-hero) both;
+  animation-delay: calc(120ms + var(--i, 0) * 35ms);
+}
+@keyframes rise-in { from { transform: translateY(105%); } to { transform: none; } }
+
+/* Section headings reveal once when they enter (class added by script) */
+[data-reveal] { overflow: hidden; }
+[data-reveal] > span { display: inline-block; transform: translateY(105%); transition: transform 900ms var(--ease-hero); }
+[data-reveal].is-in > span { transform: none; }
+
+/* Followers */
+.fade-in { animation: fade-in 500ms var(--ease-soft) both; animation-delay: var(--d, 0ms); }
+@keyframes fade-in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+
+.pop-in { animation: pop-in 800ms var(--ease-hero) both; animation-delay: var(--d, 200ms); }
+@keyframes pop-in { from { opacity: 0; transform: scale(0.94); } to { opacity: 1; transform: none; } }
+
+/* Folders drop onto the canvas, then idle-float */
+.drop { animation: drop 700ms var(--ease-drop) both; animation-delay: var(--d, 300ms); }
+@keyframes drop { from { opacity: 0; transform: translateY(-48px) rotate(-6deg); } to { opacity: 1; transform: none; } }
+.float { animation: float var(--dur, 5s) ease-in-out infinite; animation-delay: var(--fd, 1s); }
+@keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-7px); } }
+
+/* Selection handles draw on (hero button) */
+.draw-handles > .h-line { transform-origin: top; animation: draw-y 450ms var(--ease-hero) both; animation-delay: 850ms; }
+.draw-handles > .h-line.r { transform-origin: bottom; }
+.draw-handles > .h-dot { animation: dot-pop 300ms var(--ease-drop) both; animation-delay: 1150ms; }
+@keyframes draw-y { from { transform: scaleY(0); } to { transform: none; } }
+@keyframes dot-pop { from { transform: scale(0); } to { transform: none; } }
+
+/* Cursor glides in and "clicks" */
+.cursor-in { animation: cursor-in 900ms var(--ease-hero) 950ms both, click 220ms var(--ease-soft) 1850ms; }
+@keyframes cursor-in { from { opacity: 0; transform: translate(40px, 30px); } to { opacity: 1; transform: none; } }
+@keyframes click { 50% { transform: scale(0.85); } }
+
+/* Canvas frames: selected state (outline + 4 corner handles) */
+.frame { position: relative; display: block; outline: 2px solid transparent; transition: outline-color 200ms var(--ease-soft); }
+.frame > .corner {
+  position: absolute; width: 8px; height: 8px; background: #fff; border: 1.5px solid var(--color-primary);
+  transform: scale(0); transition: transform 260ms var(--ease-drop);
+}
+.frame > .corner.tl { left: -4px; top: -4px; }
+.frame > .corner.tr { right: -4px; top: -4px; transition-delay: 40ms; }
+.frame > .corner.bl { left: -4px; bottom: -4px; transition-delay: 80ms; }
+.frame > .corner.br { right: -4px; bottom: -4px; transition-delay: 120ms; }
+.frame.is-selected, .frame:hover, .frame:focus-visible { outline-color: var(--color-primary); }
+.frame.is-selected > .corner, .frame:hover > .corner, .frame:focus-visible > .corner { transform: none; }
+
+/* Parallax targets are moved by script; hint the compositor */
+[data-parallax] { will-change: transform; }
+
+@media (prefers-reduced-motion: reduce) {
+  .mask-letters > span > span, .fade-in, .pop-in, .drop, .float,
+  .draw-handles > .h-line, .draw-handles > .h-dot, .cursor-in { animation: none !important; }
+  [data-reveal] > span { transform: none; transition: none; }
+  .frame > .corner { transition: none; }
+  ::view-transition-group(*), ::view-transition-old(*), ::view-transition-new(*) { animation: none !important; }
+}
