@@ -14,17 +14,17 @@ import lineQr from '../assets/site/line-qr.jpg';
       <div class="flex flex-col gap-7 lg:w-[582px]">
         <div class="flex flex-col gap-3">
           <span class="tag self-start">◇ Open for projects</span>
-          <h1 class="font-anton text-[96px] leading-none lg:text-[160px]">CONNECT</h1>
+          <h1 class="font-anton text-[clamp(64px,26vw,96px)] leading-none lg:text-[160px]">CONNECT</h1>
         </div>
         <p class="text-base leading-[1.6] text-[#333] lg:text-lg">อยากคุยเรื่องงานออกแบบ ชวนทำโปรเจกต์ หรือแค่อยากทักทาย ส่งอีเมลหรือแอด LINE มาได้เลย</p>
         <dl class="divide-y divide-border">
-          <div class="flex items-center justify-between py-4">
+          <div class="flex flex-col gap-1 py-4 sm:flex-row sm:items-center sm:justify-between sm:gap-6">
             <dt class="font-montserrat text-[13px] font-bold text-text-muted">EMAIL</dt>
-            <dd><a href={`mailto:${site.email}`} class="font-montserrat text-lg font-semibold hover:text-primary">{site.email}</a></dd>
+            <dd class="min-w-0"><a href={`mailto:${site.email}`} class="break-all font-montserrat text-base font-semibold hover:text-primary sm:text-lg">{site.email}</a></dd>
           </div>
-          <div class="flex items-center justify-between py-4">
+          <div class="flex flex-col gap-1 py-4 sm:flex-row sm:items-center sm:justify-between sm:gap-6">
             <dt class="font-montserrat text-[13px] font-bold text-text-muted">LINE</dt>
-            <dd><a href={site.line.url} class="font-montserrat text-lg font-semibold hover:text-primary">{site.line.id}</a></dd>
+            <dd class="min-w-0"><a href={site.line.url} class="font-montserrat text-base font-semibold hover:text-primary sm:text-lg">{site.line.id}</a></dd>
           </div>
         </dl>
         <div class="flex flex-col gap-6 rounded-md border-[1.5px] border-text bg-white p-6 sm:flex-row sm:items-center">
