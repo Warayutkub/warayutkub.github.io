@@ -8,7 +8,7 @@ status: design
 tags: [E-commerce, Branding, Admin]
 cover: ./cover.jpg
 order: 4
-featured: true
+featured: false
 screens:
   - src: ./screen-1.jpg
     caption: หน้าแรกร้าน ใช้มาสคอตกับปกหนังสือจริงเป็นจุดสนใจ
