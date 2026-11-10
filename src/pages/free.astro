@@ -1,0 +1,152 @@
+---
+import { Image } from 'astro:assets';
+import Layout from '../layouts/Layout.astro';
+import Footer from '../components/Footer.astro';
+import tokbatLog from '../assets/free/tokbat-log.jpg';
+import tokbatHistory from '../assets/free/tokbat-history.jpg';
+import tokbatReport from '../assets/free/tokbat-report.jpg';
+import tokbatWelcome from '../assets/free/tokbat-welcome.jpg';
+import wridgeOverview from '../assets/free/wridge-overview.jpg';
+
+const tokbat = {
+  download: 'https://github.com/Warayutkub/tokbat/releases/latest',
+  features: [
+    'กรอกเวลาเข้า–ออกได้หลายช่วงต่อวัน ลากบนไทม์ไลน์หรือพิมพ์เอง',
+    'ข้ามเที่ยงคืนได้ ชั่วโมงนับเป็นของวันที่เริ่มงาน',
+    'หักเวลาพักให้เอง · เตือนวันที่ลืมกรอก',
+    'รายงานตามรอบตัดยอด ส่งออก A4 เป็น PDF หรือ PNG',
+    'นำเข้าข้อมูลเก่าจาก Google Sheets ได้',
+  ],
+  specs: ['Windows 10 / 11', '3.5 MB', 'v0.2.1', 'ไม่ต้องใช้เน็ต', 'ไม่ต้องสมัคร'],
+  screens: [
+    { src: tokbatHistory, alt: 'หน้าประวัติของตอกบัตร', caption: 'ประวัติ: ค้นหมายเหตุ แก้ ลบ ย้อนกลับได้' },
+    { src: tokbatReport, alt: 'หน้ารายงานของตอกบัตร', caption: 'รายงาน: ชั่วโมงรวมคิดจากนาทีจริง เลือกคอลัมน์ก่อนส่งออก' },
+    { src: tokbatWelcome, alt: 'หน้าแรกตอนเปิดตอกบัตรครั้งแรก', caption: 'เปิดครั้งแรก: เริ่มกรอกวันนี้ หรือดึงชีตเก่ามา' },
+  ],
+};
+const steps = [
+  { n: '01', title: 'ดาวน์โหลดไฟล์ .exe', body: 'กดปุ่มดาวน์โหลดฟรี จะไปหน้า GitHub Releases แล้วกดไฟล์ .exe ใต้หัวข้อ Assets (ประมาณ 3.5 MB)' },
+  { n: '02', title: 'ถ้า Windows ขึ้นจอสีฟ้า', body: 'กด "More info" แล้วกด "Run anyway" ติดตั้งให้เฉพาะบัญชีคุณ ไม่ต้องใช้สิทธิ์แอดมิน' },
+  { n: '03', title: 'เปิดแอป เริ่มกรอกเวลา', body: 'กด "เริ่มบันทึกวันนี้" หรือนำเข้าไฟล์ CSV จากชีตเดิม ข้อมูลเก็บที่ Documents\\ตอกบัตร' },
+];
+const faq = [
+  { q: 'ฟรีจริงไหม', a: 'ฟรี ไม่มีค่าใช้จ่ายแฝง ไม่มีโฆษณา ไม่ต้องสมัครสมาชิก' },
+  { q: 'ข้อมูลของฉันไปไหน', a: 'อยู่ในเครื่องคุณเท่านั้น แอปไม่ต้องใช้อินเทอร์เน็ตและไม่ส่งข้อมูลออกไปไหน' },
+  { q: 'ใช้บน Mac หรือมือถือได้ไหม', a: 'ตอนนี้ได้เฉพาะ Windows 10 และ 11' },
+  { q: 'เจอปัญหาทำยังไง', a: 'แจ้งมาที่หน้า Contact ได้ จะตอบเมื่อสะดวก เพราะเป็นของแจกฟรี เลยไม่รับประกันเวลา' },
+];
+---
+
+<Layout title="Free tools — Warayut" description="แอปที่ทำไว้ใช้เองแล้วแจกให้ใช้ฟรี ไม่มีโฆษณา ไม่ต้องสร้างบัญชี ข้อมูลอยู่ในเครื่องคุณเอง" current="free">
+  <header class="panel flex flex-col items-center pb-12">
+    <div class="flex flex-col items-center gap-4 px-5 pt-8 text-center lg:pt-12">
+      <span class="tag fade-in">◇ แจกฟรี · ไม่ต้องสมัคร</span>
+      <h1 class="font-anton text-[88px] leading-none lg:text-[180px]" data-reveal><span>FREE TOOLS</span></h1>
+      <p class="fade-in text-base leading-[1.6] text-[#444] lg:text-[17px]" style="--d:300ms">
+        ระบบที่ทำไว้ใช้เองแล้วใช้ได้จริง เลยแจกให้ใช้ฟรี ไม่มีโฆษณา ไม่ต้องสร้างบัญชี ข้อมูลอยู่ในเครื่องคุณเอง
+      </p>
+    </div>
+  </header>
+
+  <!-- 01 ตอกบัตร -->
+  <section class="panel flex flex-col gap-10 p-5 lg:p-14" aria-labelledby="tokbat">
+    <div class="flex flex-col gap-8 lg:flex-row lg:items-center lg:gap-12">
+      <a href={tokbat.download} class="frame fade-in shrink-0 lg:w-[58%]" style="--d:200ms">
+        <Image src={tokbatLog} alt="หน้าบันทึกเวลาของตอกบัตร มีไทม์ไลน์ 24 ชั่วโมง" widths={[800, 1600]} sizes="(min-width: 1024px) 680px, 100vw" class="w-full rounded-sm border border-border" />
+        <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+      </a>
+      <div class="flex min-w-0 flex-col gap-4">
+        <p class="mono text-[13px] text-primary">01 · desktop app · windows · ฟรี</p>
+        <h2 id="tokbat" class="font-anton text-[64px] leading-none lg:text-[72px]" data-reveal><span>ตอกบัตร</span></h2>
+        <p class="text-lg leading-[1.6] text-[#222]">บันทึกเวลาทำงานแบบตอกบัตร กะดึกข้ามเที่ยงคืนก็นับถูก แล้วส่งออกเป็น PDF ส่งหัวหน้าได้ในคลิกเดียว</p>
+        <ul class="flex flex-col gap-1.5 text-[15px] leading-[1.6] text-[#333]">
+          {tokbat.features.map((f) => <li class="flex gap-2"><span class="text-primary">✓</span>{f}</li>)}
+        </ul>
+        <ul class="flex flex-wrap gap-2">
+          {tokbat.specs.map((s) => <li class="rounded-full bg-[#efede8] px-3 py-1.5 mono text-[13px] text-[#333]">{s}</li>)}
+        </ul>
+        <div class="flex flex-wrap items-center gap-3 pt-1">
+          <a href={tokbat.download} class="btn-primary !bg-primary !text-white hover:!bg-[#1f57e6]">ดาวน์โหลดฟรี ↓</a>
+          <a href="#install" class="btn-primary">วิธีติดตั้ง</a>
+        </div>
+        <p class="text-sm text-[#666]">เหมาะกับ: พาร์ทไทม์ · ฟรีแลนซ์คิดรายชั่วโมง · คนทำงานเป็นกะ</p>
+      </div>
+    </div>
+    <ul class="grid gap-6 sm:grid-cols-3">
+      {
+        tokbat.screens.map((s, i) => (
+          <li class="fade-in flex flex-col gap-2.5" style={`--d:${300 + i * 120}ms`}>
+            <Image src={s.src} alt={s.alt} widths={[480, 960]} sizes="(min-width: 640px) 33vw, 100vw" class="w-full rounded-sm border border-border transition-transform duration-300 hover:-translate-y-1" />
+            <p class="text-sm leading-[1.6] text-[#555]">{s.caption}</p>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+
+  <!-- More tools -->
+  <section class="panel flex flex-col gap-8 p-5 lg:p-14" aria-labelledby="more">
+    <h2 id="more" class="font-montserrat text-[28px] font-bold leading-tight" data-reveal><span>เครื่องมืออื่นที่แจก</span></h2>
+    <div class="grid gap-8 lg:grid-cols-2">
+      <a href="https://warayutkub.github.io/wridge/" class="group flex flex-col gap-3">
+        <span class="frame">
+          <Image src={wridgeOverview} alt="หน้าแรกของแอป wridge" widths={[560, 1120]} sizes="(min-width: 1024px) 560px, 100vw" class="w-full rounded-sm border border-border" />
+          <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+        </span>
+        <span class="mono text-[13px] text-[#555]">02 · desktop app · สำหรับคนออกแบบกับ AI</span>
+        <span class="font-montserrat text-lg font-bold">WRIDGE</span>
+        <span class="text-[15px] leading-[1.6] text-[#444]">ให้ Claude Code อ่านและแก้ไฟล์ Figma ได้โดยตรง พร้อมจำโน้ตและการตัดสินใจของโปรเจกต์ข้ามแชท</span>
+        <span class="font-montserrat text-[13px] font-bold text-primary">ดาวน์โหลด · ดูเว็บไซต์ <span class="inline-block transition-transform group-hover:translate-x-1">→</span></span>
+      </a>
+      <div class="flex flex-col items-center justify-center gap-3 rounded-sm border-[1.5px] border-dashed border-[#bdb9b0] bg-[#f3f1ec] p-10 text-center">
+        <span class="mono text-[13px] text-primary">เร็วๆ นี้</span>
+        <span class="font-montserrat text-lg font-bold">TEMPLATE ใบเสนอราคา → ใบเสร็จ</span>
+        <span class="text-[15px] leading-[1.6] text-[#555]">ชุดเอกสารสำหรับฟรีแลนซ์ ไฟล์ Figma พร้อมตัวอย่างกรอกครบทุกกรณี</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Install -->
+  <section id="install" class="panel flex scroll-mt-28 flex-col gap-8 p-5 lg:p-14" aria-labelledby="install-title">
+    <h2 id="install-title" class="font-montserrat text-[28px] font-bold leading-tight" data-reveal><span>ติดตั้งใน 3 ขั้น</span></h2>
+    <ol class="grid gap-4 lg:grid-cols-3 lg:gap-6">
+      {
+        steps.map((s) => (
+          <li class="flex flex-col gap-3 rounded-sm border border-border bg-white p-7">
+            <span class="font-anton text-[56px] leading-none text-primary">{s.n}</span>
+            <h3 class="text-lg font-bold">{s.title}</h3>
+            <p class="text-[15px] leading-[1.6] text-[#444]">{s.body}</p>
+            {s.n === '02' && (
+              <div class="mt-1 flex flex-col items-start gap-2 bg-[#0b5cad] p-4 text-white" aria-hidden="true" style="font-family:'Segoe UI',sans-serif">
+                <span class="text-[17px]">Windows protected your PC</span>
+                <span class="text-[13px] underline">More info</span>
+                <span class="border-[1.5px] border-white px-3.5 py-1 text-[13px]">Run anyway</span>
+              </div>
+            )}
+          </li>
+        ))
+      }
+    </ol>
+    <div class="flex flex-col gap-1.5 rounded-sm bg-[#fff8dc] p-6">
+      <p class="font-bold">ทำไม Windows ถึงเตือน?</p>
+      <p class="text-[15px] leading-[1.6] text-[#444]">แอปนี้ยังไม่ได้เซ็นชื่อด้วยใบรับรองผู้พัฒนา (ต้องจ่ายรายปี) Windows เลยเตือนไว้ก่อนสำหรับไฟล์ที่มันยังไม่รู้จัก ไม่ได้แปลว่าไฟล์มีปัญหา</p>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="panel flex flex-col gap-6 p-5 lg:p-14" aria-labelledby="faq">
+    <h2 id="faq" class="font-montserrat text-[28px] font-bold leading-tight" data-reveal><span>คำถามที่พบบ่อย</span></h2>
+    <dl class="flex flex-col gap-2.5">
+      {
+        faq.map((f) => (
+          <div class="rounded-sm bg-[#f3f1ec] px-5 py-4">
+            <dt class="text-[17px] font-bold">{f.q}</dt>
+            <dd class="text-[15px] leading-[1.6] text-[#555]">{f.a}</dd>
+          </div>
+        ))
+      }
+    </dl>
+  </section>
+
+  <Footer />
+</Layout>

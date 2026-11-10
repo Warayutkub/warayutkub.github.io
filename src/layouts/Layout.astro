@@ -6,13 +6,13 @@ import Nav from '../components/Nav.astro';
 interface Props {
   title: string;
   description?: string;
-  current?: 'work' | 'about' | 'contact';
+  current?: 'work' | 'about' | 'free' | 'contact';
 }
 
 const {
   current,
   title,
-  description = 'Warayut — รับทำเว็บและระบบให้ร้านค้าและธุรกิจเล็กๆ ตั้งแต่ออกแบบจนขึ้นใช้งานจริง',
+  description = 'Warayut — รวมผลงานออกแบบระบบ เว็บ และแอป ตั้งแต่วาง flow จนเขียนโค้ดขึ้นใช้งานจริง',
 } = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site);
 ---

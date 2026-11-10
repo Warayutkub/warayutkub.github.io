@@ -3,12 +3,13 @@ import { site } from '../data/site';
 import logo from '../assets/icons/logo-light.svg?raw';
 
 interface Props {
-  current?: 'work' | 'about' | 'contact';
+  current?: 'work' | 'about' | 'free' | 'contact';
 }
 const { current } = Astro.props;
 const links = [
   { key: 'work', label: 'WORK', href: '/works/' },
   { key: 'about', label: 'ABOUT', href: '/#about' },
+  { key: 'free', label: 'FREE', href: '/free/' },
   { key: 'contact', label: 'CONTACT', href: '/contact/' },
 ] as const;
 ---

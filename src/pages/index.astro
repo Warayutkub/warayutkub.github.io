@@ -29,10 +29,10 @@ const socials = [
 ].filter((s) => s.url);
 
 const steps = [
-  { n: '01', title: 'RESEARCH', body: 'คุยกับลูกค้าและผู้ใช้ หาว่าปัญหาจริงคืออะไร ก่อนเริ่มทำอะไรเลย', tools: ['FigJam', 'Miro'] },
+  { n: '01', title: 'RESEARCH', body: 'ทำความเข้าใจคนที่จะใช้ หาว่าปัญหาจริงคืออะไร ก่อนเริ่มทำอะไรเลย', tools: ['FigJam', 'Miro'] },
   { n: '02', title: 'STRUCTURE', body: 'จัดข้อมูลและ flow ให้ผู้ใช้ถึงเป้าหมายได้ในไม่กี่ขั้น', tools: ['FigJam', 'Notion'] },
   { n: '03', title: 'DESIGN', body: 'ออกแบบหน้าจอจาก flow ที่วางไว้ ใช้ชิ้นส่วนชุดเดียวกันทั้งระบบ ให้ดูก่อนเริ่มเขียน', tools: ['Figma', 'AI'] },
-  { n: '04', title: 'BUILD', body: 'เขียนโค้ดเองจนขึ้นใช้งานจริง ทั้งเว็บและแอป พร้อม SEO และช่วยดูแลหลังส่งงาน', tools: ['Code', 'GitHub'] },
+  { n: '04', title: 'BUILD', body: 'เขียนโค้ดเองจนขึ้นใช้งานจริง ทั้งเว็บ แอป และโปรแกรมบนเครื่อง', tools: ['Code', 'GitHub'] },
 ];
 const tools = ['Figma', 'FigJam', 'Astro', 'GitHub'];
 const subtitle = 'System designer crafting design systems, components and user flows that teams can actually ship.';
@@ -57,7 +57,7 @@ const folders = [
         {letters.map((l, i) => <span aria-hidden="true"><span style={`--i:${i}`}>{l}</span></span>)}
       </h1>
       <p class="fade-in absolute left-[115px] top-[300px] w-[600px] text-center font-montserrat text-xl font-medium leading-normal" style="--d:450ms">{subtitle}</p>
-      <HandleButton href="/contact/" class="draw-handles fade-in absolute left-[285px] top-[410px] w-[260px]" style="--d:650ms">LET'S CONNECT</HandleButton>
+      <HandleButton href="/contact/" class="draw-handles fade-in absolute left-[285px] top-[410px] w-[260px]" style="--d:650ms">CONTACT</HandleButton>
       {
         socials.length > 0 && (
           <ul class="fade-in absolute left-[297px] top-[510px] flex gap-9" style="--d:750ms">
@@ -109,7 +109,7 @@ const folders = [
         </div>
         <p class="fade-in absolute left-[98px] top-[346px] font-montserrat text-[22px] font-bold" style="--d:700ms">WARAYUT</p>
       </div>
-      <a href="/contact/" class="btn-primary fade-in" style="--d:650ms">LET'S CONNECT</a>
+      <a href="/contact/" class="btn-primary fade-in" style="--d:650ms">CONTACT</a>
     </div>
   </section>
 
@@ -130,7 +130,7 @@ const folders = [
     <div class="flex flex-col gap-5">
       <h2 class="font-anton text-5xl leading-none lg:text-[64px]" data-reveal><span>HI, I'M WARAYUT</span></h2>
       <p class="text-lg font-semibold leading-[1.6] lg:text-xl">คิดก่อนว่าระบบควรทำงานยังไง แล้วค่อยลงมือสร้างระบบ</p>
-      <p class="text-base leading-[1.6] text-[#333] lg:text-[17px]">ตอนนี้รับทำเว็บกับระบบให้ร้านค้าและธุรกิจเล็กๆ คุยโจทย์ ออกแบบ เขียนโค้ด จนขึ้นเว็บเสร็จในคนเดียว งานล่าสุดคือเว็บร้านกระจกของที่บ้าน</p>
+      <p class="text-base leading-[1.6] text-[#333] lg:text-[17px]">ชอบออกแบบระบบตั้งแต่ flow จนถึงหน้าจอ แล้วเขียนโค้ดเองจนใช้งานได้จริง งานล่าสุดคือแอปตอกบัตรที่ทำไว้ใช้เอง</p>
       <ul class="grid grid-cols-2 gap-y-2 rounded-lg bg-text px-8 py-[18px] font-montserrat text-lg font-bold text-white sm:flex sm:justify-between">
         {tools.map((t) => <li>{t}</li>)}
       </ul>
