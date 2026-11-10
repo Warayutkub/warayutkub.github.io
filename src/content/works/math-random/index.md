@@ -8,7 +8,7 @@ status: live
 liveUrl: https://math-random-qtks.onrender.com/
 tags: [Game design, Next.js, TypeScript]
 cover: ./cover.jpg
-order: 2
+order: 4
 screens:
   - src: ./screen-1.jpg
     caption: หน้าเล่นบนคอม เป้าหมายตัวใหญ่ ตัวเลขกับเครื่องหมายอยู่ใกล้กัน กดต่อกันได้เร็ว

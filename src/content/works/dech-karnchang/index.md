@@ -8,7 +8,7 @@ status: live
 liveUrl: https://warayutkub.github.io/Dech-Karnchang/
 tags: [Web design, HTML + Tailwind, SEO]
 cover: ./cover.jpg
-order: 1
+order: 3
 featured: true
 screens:
   - src: ./screen-1.jpg

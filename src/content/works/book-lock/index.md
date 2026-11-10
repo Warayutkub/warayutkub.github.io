@@ -7,8 +7,8 @@ year: 2026
 status: design
 tags: [Booking system, Payments, LINE]
 cover: ./cover.jpg
-order: 3
-featured: true
+order: 5
+featured: false
 screens:
   - src: ./screen-1.jpg
     caption: "ผู้จัด: เห็นทุกงาน ยอดเงิน และสลิปที่ต้องตรวจในหน้าเดียว"

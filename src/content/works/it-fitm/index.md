@@ -8,7 +8,7 @@ status: built
 role: งานทีม · ฉันเป็น PM ออกแบบ UI และระบบ รวมโค้ดทั้งแอป และเขียนหน้า 1–5 (Splash, หน้าแรก, หลักสูตร, รายละเอียดหลักสูตร, รายวิชา)
 tags: [Mobile app, UI design, Team lead]
 cover: ./cover.jpg
-order: 5
+order: 7
 screens:
   - src: ./screen-1.jpg
     caption: หน้าแรก หลักสูตร และรายละเอียดหลักสูตร ส่วนที่ฉันออกแบบและเขียนเอง

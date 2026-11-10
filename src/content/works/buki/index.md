@@ -7,7 +7,7 @@ year: 2026
 status: design
 tags: [E-commerce, Branding, Admin]
 cover: ./cover.jpg
-order: 4
+order: 6
 featured: false
 screens:
   - src: ./screen-1.jpg

@@ -7,7 +7,7 @@ year: 2026
 status: built
 tags: [SaaS, Next.js, Go, MCP]
 cover: ./cover.jpg
-order: 1.5
+order: 2
 featured: true
 screens:
   - src: ./screen-1.jpg
