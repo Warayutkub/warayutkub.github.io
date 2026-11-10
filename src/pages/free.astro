@@ -87,23 +87,18 @@ const faq = [
   <!-- More tools -->
   <section class="panel flex flex-col gap-8 p-5 lg:p-14" aria-labelledby="more">
     <h2 id="more" class="font-montserrat text-[28px] font-bold leading-tight" data-reveal><span>เครื่องมืออื่นที่แจก</span></h2>
-    <div class="grid gap-8 lg:grid-cols-2">
-      <a href="https://warayutkub.github.io/wridge/" class="group flex flex-col gap-3">
-        <span class="frame">
-          <Image src={wridgeOverview} alt="หน้าแรกของแอป wridge" widths={[560, 1120]} sizes="(min-width: 1024px) 560px, 100vw" class="w-full rounded-sm border border-border" />
-          <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
-        </span>
+    <a href="https://warayutkub.github.io/wridge/" class="group grid gap-6 lg:grid-cols-[58%_1fr] lg:items-center lg:gap-12">
+      <span class="frame">
+        <Image src={wridgeOverview} alt="หน้าแรกของแอป wridge" widths={[680, 1360]} sizes="(min-width: 1024px) 680px, 100vw" class="w-full rounded-sm border border-border" />
+        <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+      </span>
+      <span class="flex flex-col gap-3">
         <span class="mono text-[13px] text-[#555]">02 · desktop app · สำหรับคนออกแบบกับ AI</span>
         <span class="font-montserrat text-lg font-bold">WRIDGE</span>
         <span class="text-[15px] leading-[1.6] text-[#444]">ให้ Claude Code อ่านและแก้ไฟล์ Figma ได้โดยตรง พร้อมจำโน้ตและการตัดสินใจของโปรเจกต์ข้ามแชท</span>
         <span class="font-montserrat text-[13px] font-bold text-primary">ดาวน์โหลด · ดูเว็บไซต์ <span class="inline-block transition-transform group-hover:translate-x-1">→</span></span>
-      </a>
-      <div class="flex flex-col items-center justify-center gap-3 rounded-sm border-[1.5px] border-dashed border-[#bdb9b0] bg-[#f3f1ec] p-10 text-center">
-        <span class="mono text-[13px] text-primary">เร็วๆ นี้</span>
-        <span class="font-montserrat text-lg font-bold">TEMPLATE ใบเสนอราคา → ใบเสร็จ</span>
-        <span class="text-[15px] leading-[1.6] text-[#555]">ชุดเอกสารสำหรับฟรีแลนซ์ ไฟล์ Figma พร้อมตัวอย่างกรอกครบทุกกรณี</span>
-      </div>
-    </div>
+      </span>
+    </a>
   </section>
 
   <!-- Install -->
